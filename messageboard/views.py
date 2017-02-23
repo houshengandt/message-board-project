@@ -18,15 +18,18 @@ def leave_message(request):
     if request.method == 'POST':
         print(request.POST)
         name = request.POST['name']
+        emergency = request.POST.get('emergency')
         email = request.POST['email'] or ''
         message = request.POST['message']
         new_message = Message(name=name, email=email, message=message)
+        if emergency:
+            new_message.emergency = True
         try:
             new_message.save()
         except ValidationError as e:
             return HttpResponse("名字和信息不能为空", status=400)
         return HttpResponse()
-    if request.method =='GET':
+    if request.method == 'GET':
         return HttpResponse(status=405)
 
 

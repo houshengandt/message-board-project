@@ -6,6 +6,7 @@ class Message(models.Model):
     email = models.EmailField('邮箱', null=True, blank=True)
     message = models.CharField('留言', max_length=500, null=False, blank=False)
     time = models.DateTimeField('留言时间', auto_now=True)
+    emergency = models.BooleanField('emergency?', default=False)
 
     def save(self, *args, **kwargs):
         self.full_clean()

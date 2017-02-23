@@ -27,6 +27,12 @@
                         <label for="id_message">留言：</label>
                         <textarea id="id_message" name="message" cols="68" rows="5"></textarea>
                     </div>
+                    <div class="pure-controls">
+                        <label for="id_emergency" class="pure-checkbox">
+                            <input id="id_emergency" type="checkbox" name="emergency">Emergency?
+{#                            <small>选中将邮件通知管理员</small>#}
+                        </label>
+                    </div>
                 </fieldset>
             </form>
             <div class="pure-form pure-form-aligned">
@@ -39,7 +45,7 @@
     <div class="content pure-g">
         <div class="content message-list pure-u-1">
                 {% for message in messages %}
-                <div class="message-item pure-g">
+                <div class="message-item pure-g {% if message.emergency %}emergency{% endif %}">
                     <div class="avatar pure-u-3-24">
                         <img src='http://random-avatar.cloudist.cc/{{ message.name }}.png?size=60' alt="{{ message.name }}">
                     </div>
@@ -48,8 +54,11 @@
                         <h5 class="post-time">{{ message.time.date }}</h5>
                         <h5 class="post-time">{{ message.time.time }}</h5>
                     </div>
-                    <div class="pure-u-16-24">
+                    <div class="pure-u-15-24">
                         <p>{{ message.message }}</p>
+                    </div>
+                    <div class="pure-u-1-24">
+                        <strong>{% if message.emergency %}!{% endif %}</strong>
                     </div>
                 </div>
                 {% endfor %}

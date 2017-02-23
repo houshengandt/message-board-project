@@ -19,6 +19,9 @@ input, textarea {
 .message-list {
 
 }
+.emergency {
+    background-color: #F5E1DA;
+}
 .message-item {
     padding: 0.8em 0;
     border-bottom: 1px solid #cccccc;

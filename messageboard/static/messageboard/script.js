@@ -5,8 +5,13 @@ $(document).ready(function () {
     $("#id_submit").click(function () {
         var name = $("#id_name").val();
         var message = $("#id_message").val();
+        var emergency = false;
+        if($("#id_emergency").is(":checked")){
+            emergency = true
+        }
         var send_message_url = "leave-message/";
         var datas = $("#id_leavemessage_form").serializeArray();
+        console.log(datas)
         $.ajax({
             method: "POST",
             url: send_message_url,
@@ -21,13 +26,14 @@ $(document).ready(function () {
                 $(".message-list").prepend(prepend_html);
             },
             statusCode: {
-                400: function () {
+                400: function (xhr) {
                     if(name==""){
                         $("#id_name").addClass("invalid-input");
                     }
                     if(message==""){
                         $("#id_message").addClass("invalid-input");
                     }
+                    alert(xhr.responseText);
                 }
             }
         });
