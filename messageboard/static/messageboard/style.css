@@ -1,0 +1,38 @@
+body {
+    padding: 0 120px;
+}
+.content {
+    padding: 2em 8em 0;
+    background-color: #F1F1F1;
+}
+.form-content {
+    color: #280F34;
+    padding: 2em 8em;
+    background-color: #40A798;
+}
+input, textarea {
+    background-color: #F1F1F1;
+}
+.invalid-input {
+    border: #e9322d 2px solid !important;
+}
+.message-list {
+
+}
+.message-item {
+    padding: 0.8em 0;
+    border-bottom: 1px solid #cccccc;
+    word-break: normal;
+}
+.post-name, .post-time {
+    margin: 0;
+}
+.foot {
+    background-color: #F1F1F1;
+    padding-top: 50px;
+}
+footer {
+    margin-top: 50px;
+    height: 150px;
+    background-color: #476268;
+}

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Message Board</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'messageboard/pure-min.css' %}">
+    <link rel="stylesheet" href="{% static 'messageboard/style.css' %}">
+</head>
+<body>
+    <div class="form-content pure-g">
+        <div class=" pure-u-1">
+            <form id="id_leavemessage_form" class="pure-form pure-form-aligned">
+                <fieldset>
+                    {% csrf_token %}
+                    <div class="pure-control-group">
+
+                            <label for="id_name">你的名字：</label>
+                            <input id="id_name" type="text" name="name">
+
+
+                            <label for="id_email">你的邮箱：</label>
+                            <input id="id_email" type="email" name="email" placeholder="可选">
+
+                    </div>
+                    <div class="pure-control-group">
+                        <label for="id_message">留言：</label>
+                        <textarea id="id_message" name="message" cols="68" rows="5"></textarea>
+                    </div>
+                </fieldset>
+            </form>
+            <div class="pure-form pure-form-aligned">
+                <div class="pure-controls">
+                    <button id="id_submit" class="pure-button">提交</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content pure-g">
+        <div class="content message-list pure-u-1">
+                {% for message in messages %}
+                <div class="message-item pure-g">
+                    <div class="avatar pure-u-3-24">
+                        <img src='http://random-avatar.cloudist.cc/{{ message.name }}.png?size=60' alt="{{ message.name }}">
+                    </div>
+                    <div class="pure-u-5-24">
+                        <h4 class="post-name">{{ message.name }}</h4>
+                        <h5 class="post-time">{{ message.time.date }}</h5>
+                        <h5 class="post-time">{{ message.time.time }}</h5>
+                    </div>
+                    <div class="pure-u-16-24">
+                        <p>{{ message.message }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+    </div>
+    <div class="foot">
+        <footer></footer>
+    </div>
+    <script src="{% static 'messageboard/jquery-3.1.1.min.js' %}"></script>
+    <script src="{% static 'messageboard/script.js' %}"></script>
+</body>
+</html>
