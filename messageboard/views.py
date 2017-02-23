@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.views.generic import ListView
 from django.core.exceptions import ValidationError
+from django.core.mail import send_mail
 
 from .models import Message
 
@@ -24,6 +25,13 @@ def leave_message(request):
         new_message = Message(name=name, email=email, message=message)
         if emergency:
             new_message.emergency = True
+            try:
+                send_mail('新的紧急留言 来自' + name,
+                          message,
+                          'admin@zhiyuc.me',
+                          ['zhiyuc@outlookcom'])
+            except Exception as e:
+                print(e)
         try:
             new_message.save()
         except ValidationError as e:
