@@ -26,12 +26,11 @@ $(document).ready(function () {
             success: function () {
                 $("textarea").val("").focus();
                 $("#id_emergency").click();
-                var prepend_html = "<div class=\"message-item pure-g\"><div class=\"avatar pure-u-3-24\">" +
-                    "<img src=\'http://random-avatar.cloudist.cc/{{ message.name }}.png?size=60\' alt=\"\">" +
-                    "</div><div class=\"pure-u-3-24\"><h4 class=\"post-name\">" + name +
-                    "</h4><h5 class=\"post-time\">" + "刚刚" + "</h5></div><div class=\"pure-u-18-24\"><p>"
-                    + message + "</p></div></div>";
-                $(".message-list").prepend(prepend_html);
+                var prepend_html = "<header class=\"post-header\"><img class=\"post-avatar\" src=\"http://random-avat" +
+                    "ar.cloudist.cc/{{ message.name }}.png?size=60\" alt=\"\"> <h2 class=\"post-title\">" +
+                    name + "</h2> <p class=\"post-meta\">刚刚</p> </header> <div class=\"post-description\"> <p>" +
+                     message + "</p></div>";
+                $(".post").prepend(prepend_html);
             },
             statusCode: {
                 400: function (xhr) {
@@ -50,5 +49,6 @@ $(document).ready(function () {
     $("#id_name, #id_message").focus(function () {
         $(this).removeClass("invalid-input");
     })
+
 
 });

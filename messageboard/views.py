@@ -8,7 +8,7 @@ from .verify_code import VerifyCode
 
 
 class IndexView(ListView):
-    template_name = 'messageboard/index.html'
+    template_name = 'messageboard/message_board.html'
     context_object_name = 'messages'
 
     def get_queryset(self):
@@ -25,9 +25,9 @@ def leave_message(request):
         verify_code = request.POST.get('verify-code')
         email = request.POST['email'] or ''
         message = request.POST['message']
-        if verify_code and verify_code == request.session.get('django-verify-code').lower():
-            new_message = Message(name=name, email=email, message=message)
-            if emergency:
+        if emergency:
+            if verify_code and verify_code == request.session.get('django-verify-code').lower():
+                new_message = Message(name=name, email=email, message=message)
                 new_message.emergency = True
                 try:
                     send_mail('新的紧急留言 来自' + name,
@@ -36,13 +36,20 @@ def leave_message(request):
                               ['zhiyuc@outlook.com'])
                 except Exception as e:
                     print(e)
+                try:
+                    new_message.save()
+                except ValidationError as e:
+                    return HttpResponse("名字和信息不能为空", status=400)
+                return HttpResponse()
+            else:
+                return HttpResponse("验证码错误", status=400)
+        else:
+            new_message = Message(name=name, email=email, message=message)
             try:
                 new_message.save()
             except ValidationError as e:
                 return HttpResponse("名字和信息不能为空", status=400)
             return HttpResponse()
-        else:
-            return HttpResponse("验证码错误", status=400)
     if request.method == 'GET':
         return HttpResponse(status=405)
 
