@@ -18,8 +18,8 @@ class IndexView(ListView):
 
 def leave_message(request):
     if request.method == 'POST':
-        print(request.POST)
-        print(request.session.get('django-verify-code'))
+        # print(request.POST)
+        # print(request.session.get('django-verify-code'))
         name = request.POST['name']
         emergency = request.POST.get('emergency')
         verify_code = request.POST.get('verify-code')
@@ -35,7 +35,8 @@ def leave_message(request):
                               'admin@zhiyuc.me',
                               ['zhiyuc@outlook.com'])
                 except Exception as e:
-                    print(e)
+                    # print(e)
+                    pass
                 try:
                     new_message.save()
                 except ValidationError as e:
